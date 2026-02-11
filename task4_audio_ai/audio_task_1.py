@@ -13,6 +13,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+import warnings
+warnings.filterwarnings('ignore')
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 SAMPLE_RATE = 16000
 df = pd.DataFrame([(f, *librosa.load(os.path.join(DATA_DIR, f), sr=SAMPLE_RATE)) for f in os.listdir(DATA_DIR) if f.endswith(".wav")], columns=["filename", "audio", "sr"])
@@ -87,4 +90,5 @@ def transcribe_basic_pitch(file_path):
     # Sort by start time
     return sorted(results, key=lambda x: x[1])
 
+print(transcribe_librosa_with_octave("data/1.wav"))
 print(transcribe_basic_pitch("data/1.wav"))
